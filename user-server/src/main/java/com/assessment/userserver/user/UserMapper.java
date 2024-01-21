@@ -1,7 +1,6 @@
 package com.assessment.userserver.user;
 
 import org.mapstruct.Mapper;
-import org.springframework.web.bind.annotation.Mapping;
 
 import java.util.List;
 
