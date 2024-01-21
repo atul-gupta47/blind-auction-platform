@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+
+
+jwt:
+  secret: "BsNR4Kn+q6h0qBZt3XGngrHB32g7DmdKXS8Md7psEojC+6Ocjtxbd5PYz5QKsYwmfrHG39GmZsaisDSEtTtwzg=="
+
+
+logging:
+  level:
+    sql: ERROR
