@@ -39,7 +39,7 @@ public class UserController {
 		return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/generate-token/{id}")
+	@PostMapping("/generate-token/{id}")
 	public ResponseEntity<String> generateToken(@PathVariable Long id) {
 		String token = userService.generateTokenForUser(id);
 		return (token != null) ?
@@ -48,10 +48,8 @@ public class UserController {
 	}
 
 	@PostMapping("/validate-token")
-	public ResponseEntity<Void> validateToken(@RequestBody TokenValidationRequest request) {
-		Long userId = request.getUserId();
-		String token = request.getToken();
-		boolean isValid = userService.validateTokenForUser(userId, token);
+	public ResponseEntity<Void> validateToken(@RequestBody String token) {
+		boolean isValid = userService.validateTokenForUser(token);
 		return (isValid) ?
 				new ResponseEntity<>(HttpStatus.OK) :
 				new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

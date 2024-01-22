@@ -42,8 +42,8 @@ public class UserService {
 		return null;
 	}
 
-	public boolean validateTokenForUser(Long userId, String token) {
-		User user = userRepository.findById(userId).orElse(null);
-		return (user != null) && tokenService.validateToken(userId, token);
+	public boolean validateTokenForUser(String token) {
+		User user = userRepository.findByToken(token).orElse(null);
+		return (user != null) && tokenService.validateToken(user.getId(), user.getToken());
 	}
 }

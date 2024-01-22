@@ -21,4 +21,7 @@ public class User {
 	@Column(name = "token")
 	private String token;
 
+	@Column(name = "role")
+	private String role; // BUYER/SELLER
+
 }

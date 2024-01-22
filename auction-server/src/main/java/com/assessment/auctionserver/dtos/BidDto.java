@@ -16,4 +16,7 @@ public class BidDto {
 
 	private BigDecimal bidAmount;
 
+	private String userToken;
+
+
 }

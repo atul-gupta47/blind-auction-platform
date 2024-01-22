@@ -5,7 +5,8 @@ spring:
     hibernate:
       ddl-auto: create
 
-
+server:
+  port: 9002
 jwt:
   secret: "BsNR4Kn+q6h0qBZt3XGngrHB32g7DmdKXS8Md7psEojC+6Ocjtxbd5PYz5QKsYwmfrHG39GmZsaisDSEtTtwzg=="
 
