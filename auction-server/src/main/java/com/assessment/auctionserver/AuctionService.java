@@ -11,8 +11,6 @@ import com.assessment.auctionserver.repositories.AuctionRepository;
 import com.assessment.auctionserver.repositories.BidRepository;
 import com.assessment.auctionserver.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -55,7 +53,7 @@ public class AuctionService {
 		return null;
 	}
 
-	public BidDto placeNewBid(BidDto newBid) throws BadRequestException {
+	public BidDto placeNewBid(BidDto newBid) {
 		Optional<Auction> auction = auctionRepository.findById(newBid.getAuctionId());
 		var entity = bidMapper.toEntity(newBid);
 		if (auction.isPresent()) {
@@ -66,6 +64,6 @@ public class AuctionService {
 			}
 		}
 
-		throw new BadRequestException("Auction is not active");
+		return null;
 	}
 }
