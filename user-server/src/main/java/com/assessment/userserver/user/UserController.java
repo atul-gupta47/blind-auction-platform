@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/users")
@@ -26,7 +26,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDTO> getUserById(@PathVariable UUID id) {
+	public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
 		UserDTO user = userService.getUserById(id);
 		return (user != null) ?
 				new ResponseEntity<>(user, HttpStatus.OK) :
@@ -40,7 +40,7 @@ public class UserController {
 	}
 
 	@GetMapping("/generate-token/{id}")
-	public ResponseEntity<String> generateToken(@PathVariable UUID id) {
+	public ResponseEntity<String> generateToken(@PathVariable Long id) {
 		String token = userService.generateTokenForUser(id);
 		return (token != null) ?
 				new ResponseEntity<>(token, HttpStatus.OK) :
@@ -49,7 +49,7 @@ public class UserController {
 
 	@PostMapping("/validate-token")
 	public ResponseEntity<Void> validateToken(@RequestBody TokenValidationRequest request) {
-		UUID userId = request.getUserId();
+		Long userId = request.getUserId();
 		String token = request.getToken();
 		boolean isValid = userService.validateTokenForUser(userId, token);
 		return (isValid) ?

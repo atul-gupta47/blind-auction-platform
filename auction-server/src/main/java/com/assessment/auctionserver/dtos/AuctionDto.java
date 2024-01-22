@@ -1,21 +1,23 @@
 package com.assessment.auctionserver.dtos;
 
-import com.assessment.auctionserver.entities.Product;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+
 @Getter
 @Setter
-public class AuctionDTO {
+public class AuctionDto {
 
 	private Long id;
 
-	private Product productId;
+	private Long productId;
 
 	private LocalDateTime startTime;
 
 	private LocalDateTime endTime;
+
+	private boolean active;
 
 }

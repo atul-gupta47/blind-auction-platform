@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
+
 @Getter
 @Setter
 @Entity
@@ -16,9 +17,12 @@ public class Bid {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "auctionId", referencedColumnName = "id")
-	private Auction auction;
+	@Column(name = "auction_id")
+	private Long auctionId;
 
+	@Column(name = "bid_amount")
 	private BigDecimal bidAmount;
+
+	@Column(name = "user_token")
+	private String userToken;
 }

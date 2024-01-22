@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+
 @Getter
 @Setter
 @Entity
@@ -16,9 +17,8 @@ public class Auction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
-	@JoinColumn(name = "product_id", nullable = false)
-	private Product productId;
+	@Column(name = "product_id")
+	private Long productId;
 
 	@Column(name = "start_time", nullable = false)
 	private LocalDateTime startTime;

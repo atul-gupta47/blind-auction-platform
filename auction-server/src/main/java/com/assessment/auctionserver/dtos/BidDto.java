@@ -5,13 +5,14 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
+
 @Getter
 @Setter
-public class BidDTO {
+public class BidDto {
 
 	private Long id;
 
-	private AuctionDTO auction;
+	private Long auctionId;
 
 	private BigDecimal bidAmount;
 

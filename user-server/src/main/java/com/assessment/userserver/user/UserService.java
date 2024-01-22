@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+
 
 @Service
 @AllArgsConstructor
@@ -20,7 +20,7 @@ public class UserService {
 		return userMapper.usersToUserDTOs(users);
 	}
 
-	public UserDTO getUserById(UUID id) {
+	public UserDTO getUserById(Long id) {
 		User user = userRepository.findById(id).orElse(null);
 		return (user != null) ? userMapper.userToUserDTO(user) : null;
 	}
@@ -31,7 +31,7 @@ public class UserService {
 		return userMapper.userToUserDTO(savedUser);
 	}
 
-	public String generateTokenForUser(UUID userId) {
+	public String generateTokenForUser(Long userId) {
 		User user = userRepository.findById(userId).orElse(null);
 		if (user != null) {
 			String token = tokenService.generateToken(userId);
@@ -42,7 +42,7 @@ public class UserService {
 		return null;
 	}
 
-	public boolean validateTokenForUser(UUID userId, String token) {
+	public boolean validateTokenForUser(Long userId, String token) {
 		User user = userRepository.findById(userId).orElse(null);
 		return (user != null) && tokenService.validateToken(userId, token);
 	}

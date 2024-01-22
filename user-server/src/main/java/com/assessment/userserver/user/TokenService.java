@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.UUID;
+
 
 @Service
 public class TokenService {
@@ -14,7 +14,7 @@ public class TokenService {
 	@Value("${jwt.secret}")
 	private String secret;
 
-	public String generateToken(UUID userId) {
+	public String generateToken(Long userId) {
 		Date now = new Date();
 		Date expiryDate = new Date(now.getTime() + 86400000); // Token expires in 24 hours
 
@@ -26,7 +26,7 @@ public class TokenService {
 				.compact();
 	}
 
-	public boolean validateToken(UUID userId, String token) {
+	public boolean validateToken(Long userId, String token) {
 		try {
 			String extractedUserId = Jwts.parser()
 					.setSigningKey(secret)
