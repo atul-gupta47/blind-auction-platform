@@ -31,6 +31,7 @@ public class ApiFilter implements Filter {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User validation failed");
 		}
 
+
 		filterChain.doFilter(httpServletRequest, servletResponse);
 	}
 

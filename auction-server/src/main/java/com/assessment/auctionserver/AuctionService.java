@@ -4,6 +4,7 @@ import com.assessment.auctionserver.dtos.AuctionDto;
 import com.assessment.auctionserver.dtos.BidDto;
 import com.assessment.auctionserver.dtos.ProductDto;
 import com.assessment.auctionserver.entities.Auction;
+import com.assessment.auctionserver.entities.Bid;
 import com.assessment.auctionserver.mappers.AuctionMapper;
 import com.assessment.auctionserver.mappers.BidMapper;
 import com.assessment.auctionserver.mappers.ProductMapper;
@@ -13,6 +14,9 @@ import com.assessment.auctionserver.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -43,12 +47,17 @@ public class AuctionService {
 		return auctionMapper.toDto(savedAuction);
 	}
 
-	public AuctionDto endAuction(Long auctionId) {
+	public String endAuction(Long auctionId) {
 		Optional<Auction> auction = auctionRepository.findById(auctionId);
-		if (auction.isPresent()) {
+		if (auction.isPresent() && auction.get().isActive()) {
 			Auction endedAuction = auction.get();
 			endedAuction.setActive(false);
-			return auctionMapper.toDto(auctionRepository.save(endedAuction));
+			endedAuction.setEndTime(LocalDateTime.now());
+			auctionRepository.save(endedAuction);
+
+			return findWinner(auctionId);
+
+
 		}
 		return null;
 	}
@@ -65,5 +74,19 @@ public class AuctionService {
 		}
 
 		return null;
+	}
+
+	public String findWinner(Long auctionId) {
+		List<Bid> bids = bidRepository.findByAuctionIdOrderByBidAmountDesc(auctionId);
+
+		if (bids == null || bids.isEmpty()) {
+			return null; // No bids, no winner
+		}
+
+		// Sort bids in descending order based on bid amount
+		bids.sort(Comparator.comparing(Bid::getBidAmount, Comparator.reverseOrder()));
+
+		// The winner is the first buyer with the highest bid amount
+		return bids.stream().findFirst().get().getUserToken();
 	}
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("user-server/v1//users")
 public class UserController {
 
 	private final UserService userService;

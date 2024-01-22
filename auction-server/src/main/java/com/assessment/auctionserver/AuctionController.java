@@ -6,7 +6,7 @@ import com.assessment.auctionserver.dtos.ProductDto;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/auction-server/v1")
 public class AuctionController {
 
 	private final AuctionService auctionService;
